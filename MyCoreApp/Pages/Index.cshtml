@@ -1,0 +1,80 @@
+﻿
+
+@page
+@using MyCoreApp.Pages
+@model MyCoreApp.Pages.IndexModel
+@{
+    Layout = null;
+}
+
+
+
+<!DOCTYPE html>
+ 
+<html>
+<head>
+    <meta name="viewport" content="width=device-width"/>
+    <title>Index</title>
+</head>
+<body>
+
+    @foreach(var acc in Model.accounts)
+    {
+        <h5>@acc.kontonavn</h5>
+        <h4>Saldo: @acc.saldo NOK</h4>
+    }
+    <p></p>
+    <h3>Transaksjoner</h3>
+    <table border="1" cellpadding="2" cellspacing="2">
+        <tr>
+
+            <th>Dato</th>
+            <th>Beskrivelse</th>
+            <th>Inn</th>
+            <th>Ut</th>
+
+
+
+            @foreach(var transaksjon in Model.tran){
+
+                //konverterer dato til rikitg format
+                DateTime dateConvert = Convert.ToDateTime(transaksjon.dato);
+                var dateCorr = dateConvert.ToShortDateString();
+
+
+                string conv = Convert.ToString(transaksjon.beloep);
+                string conv2 = Convert.ToString(transaksjon.beloep);
+
+
+                //conv setter til beløpet hvis beløpet er positivt, conv2 settes til tom
+                if (transaksjon.beloep > 0)
+                {
+                    conv = Convert.ToString(transaksjon.beloep);
+                    conv2 = "";
+
+                //conv2 setter til beløpet hvis beløpet er negativt, conv settes til tom
+                }
+                else
+                {
+                    conv = "";
+                    conv2 = Convert.ToString(transaksjon.beloep);
+
+                }
+
+                <tr>
+                    
+
+                <td>@dateCorr </td>
+                <td>@transaksjon.beskrivelse </td>
+                <td>@conv</td>
+                <td>@conv2</td>
+
+                </tr>
+
+
+                }
+                    </table>
+       
+         
+</body>
+</html>
